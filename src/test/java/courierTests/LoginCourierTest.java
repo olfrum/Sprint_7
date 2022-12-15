@@ -35,6 +35,8 @@ public class LoginCourierTest {
                 .statusCode(200)
                 .and()
                 .assertThat().body("id", notNullValue());
+
+        CourierTC.deleteCreatedCourier(response, courierData);
     }
     @Test
     @DisplayName("Login with empty password field")
@@ -54,6 +56,8 @@ public class LoginCourierTest {
                 .statusCode(400)
                 .and()
                 .assertThat().body("message", equalTo(ERROR_400));
+
+        CourierTC.deleteCreatedCourier(response, courierData);
     }
 
     @Test
@@ -74,12 +78,14 @@ public class LoginCourierTest {
                 .statusCode(400)
                 .and()
                 .assertThat().body("message", equalTo(ERROR_400));
+
+        CourierTC.deleteCreatedCourier(response, courierData);
     }
 
     @Test
     @DisplayName("Login with nonExist courier")
     @Description("Result: status code 404")
-    public void loginWithNonExistCouirer() {
+    public void loginWithNonExistCourier() {
         Response response = CourierTC.loginCourier(CourierGenerator.loginNonFirstNameCourier());
 
         response.then()
